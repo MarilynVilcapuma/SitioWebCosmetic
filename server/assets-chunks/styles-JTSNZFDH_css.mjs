@@ -1,0 +1,2 @@
+export default `*,*:before,*:after{box-sizing:border-box}html,body{height:100%;margin:0;padding:0}body{overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}app-root{display:block;min-height:100dvh}main,header,footer,section,article,aside,nav{margin:0;padding:0}img,picture,video,canvas,svg{display:block;max-width:100%;height:auto}ul,ol{margin:0;padding:0;list-style:none}a{color:inherit;text-decoration:none}.full-bleed{width:100vw;margin-left:50%;transform:translate(-50%)}
+`;
