@@ -1,0 +1,216 @@
+<!-- Header -->
+<header class="header">
+  <div class="promo-banner">
+    <p>Envío gratis por compras mayores a S/199. Aplican T&C</p>
+  </div>
+  
+  <div class="header-main">
+    <div class="logo">
+      <h1>aruma</h1>
+    </div>
+    
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar producto">
+      <button type="submit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="header-actions">
+      <div class="user-menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <span>Hola, inicia sesión</span>
+      </div>
+      <div class="store-locator">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 7c0-1.1-.9-2-2-2h-3V3c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v2H4c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h2V7z"/>
+        </svg>
+        <span>Encuentra tu tienda</span>
+      </div>
+      <div class="points">
+        <span class="magenta-text">magenta points</span>
+      </div>
+      <div class="cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation -->
+<nav class="navigation">
+  <ul class="nav-menu">
+    <li *ngFor="let category of categories" class="nav-item">
+      <a href="#" class="nav-link">{{ category }}</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+  <!-- Featured Products Section -->
+  <section class="featured-section">
+    <div class="section-header">
+      <h2 class="section-title">Lo más nuevo</h2>
+      <a href="#" class="view-all">Ver todos</a>
+    </div>
+    
+    <div class="products-carousel">
+      <button class="carousel-btn prev" (click)="scrollCarousel('prev')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+      
+      <div class="products-grid">
+        <div *ngFor="let product of featuredProducts" 
+             class="product-card" 
+             (click)="navigateToProduct(product.id)">
+          <div class="product-image">
+            <span *ngIf="product.isNew" class="new-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Lo nuevo
+            </span>
+            <img [src]="product.image" [alt]="product.name" loading="lazy">
+            <button class="favorite-btn" (click)="addToFavorites(product, $event)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-brand">{{ product.brand }}</h3>
+            <p class="product-name">{{ product.name }}</p>
+            <div class="product-price">
+              <span class="current-price">S/ {{ product.price.toFixed(2) }}</span>
+              <span *ngIf="product.originalPrice" class="original-price">
+                S/ {{ product.originalPrice.toFixed(2) }}
+              </span>
+            </div>
+            <button class="add-to-cart" (click)="addToCart(product, $event)">
+              Agregar al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <button class="carousel-btn next" (click)="scrollCarousel('next')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <h2>Explora nuestras categorías</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&h=200&fit=crop&crop=center" alt="Cuidado de la Piel">
+        <h3>Cuidado de la Piel</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&h=200&fit=crop&crop=center" alt="Maquillaje">
+        <h3>Maquillaje</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&h=200&fit=crop&crop=center" alt="Fragancias">
+        <h3>Fragancias</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&h=200&fit=crop&crop=center" alt="Cuidado del Cabello">
+        <h3>Cuidado del Cabello</h3>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <!-- Columna izquierda: slogan + redes -->
+    <div class="footer-left">
+      <h3 class="slogan">Suelta. <em>Disfruta.</em></h3>
+
+      <div class="social-links" aria-label="Redes sociales">
+        <!-- Tus SVGs existentes -->
+        <a href="#" aria-label="Facebook">
+          <!-- (SVG Facebook) -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <!-- (SVG Instagram) -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 3.675a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm7.846-.358a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Twitter">
+          <!-- (SVG Twitter/X) -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M23.953 4.57a10 10 0 0 1-2.825.775 4.958 4.958 0 0 0 2.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 0 0-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 0 0-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 0 1-2.228-.616v.06a4.923 4.923 0 0 0 3.946 4.827 4.996 4.996 0 0 1-2.212.085 4.936 4.936 0 0 0 4.604 3.417 9.867 9.867 0 0 1-6.102 2.105c-.39 0-.779-.023-1.17-.067A13.995 13.995 0 0 0 12 21.543c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0 0 24 4.59z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Sello / Libro de reclamaciones (usa tu imagen real) -->
+      <a class="reclamos" href="#" aria-label="Libro de Reclamaciones">
+        <img src="/assets/libro-reclamaciones.png" alt="Libro de Reclamaciones">
+      </a>
+
+      <!-- Mini fila de marcas (placeholders) -->
+      <ul class="brands">
+        <li>Let’s Encrypt</li>
+        <li>American Express</li>
+        <li>VISA</li>
+        <li class="mc"><span></span><span></span></li>
+      </ul>
+    </div>
+
+    <!-- Columna 2 -->
+    <div class="footer-section">
+      <h4>Atención al Cliente</h4>
+      <ul>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas Frecuentes</a></li>
+        <li><a href="#">Política de Envíos</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 3 -->
+    <div class="footer-section">
+      <h4>Mi Cuenta</h4>
+      <ul>
+        <li><a href="#">Iniciar Sesión</a></li>
+        <li><a href="#">Mis Pedidos</a></li>
+        <li><a href="#">Lista de Deseos</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 4 -->
+    <div class="footer-section">
+      <h4>Información Legal</h4>
+      <ul>
+        <li><a href="#">Facturación Electrónica</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Aruma. Todos los derechos reservados — by marilyn.vilcapuma.trujillo@vallegrande.edu.pe</p>
+  </div>
+</footer>
